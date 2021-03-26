@@ -8,21 +8,22 @@
     <style>
         .grille {
             display: grid;
-            grid-template-columns: /* avec repeat , auto-fit et minmax */;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) [fin-grille]/* avec repeat , auto-fit et minmax */;
+            grid-auto-flow: row dense;
         }
         .grille>img {
             width: 100%;
             box-sizing: border-box;
         }
         .grille>img.active {
-
+            grid-column: 1 / fin-grille;
             border: 5px solid red;
         }
     </style>
 </head>
 <body>
 <div class="grille">
-    <img src="img-squirrel/squirrel-1.jpg" alt="Squirrel"><img
+    <img src="img-squirrel/squirrel-1.jpg" alt="Squirrel" class="active"><img
          src="img-squirrel/squirrel-2.jpg" alt="Squirrel"><img
          src="img-squirrel/squirrel-3.jpg" alt="Squirrel"><img
          src="img-squirrel/squirrel-4.jpg" alt="Squirrel"><img
@@ -44,6 +45,17 @@
     (function () {
         "use strict";
 
+        var letimg = document.querySelectorAll('.grille>img')
+
+        function clickimage () {
+            document.querySelector('.active').classList.remove('active');
+            this.classList.add('active');
+        }
+
+        for (var i = 0; i < letimg.length; i++){
+            var uneimg = letimg [i];
+            uneimg.addEventListener('click', clickimage);
+        }
 
     }());
 </script>
